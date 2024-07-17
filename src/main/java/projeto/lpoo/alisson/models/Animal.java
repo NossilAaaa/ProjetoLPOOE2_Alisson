@@ -12,12 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author aliss
  */
 @Entity
+@Table(name = "tb_Animal")
 public class Animal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

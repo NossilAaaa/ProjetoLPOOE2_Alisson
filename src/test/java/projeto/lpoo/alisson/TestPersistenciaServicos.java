@@ -41,10 +41,17 @@ public class TestPersistenciaServicos {
         cliente.setNome("Robson A");
         cliente.setEndereco("Rua da Esperanca, 80");
         cliente.setTelefone("9090-8080");
-        //inicializar a collection
         cliente.setAnimais(new ArrayList<>()); 
         
         jpa.persist(cliente);
+        
+        Clientes c = new Clientes();
+        c.setNome("Henrique Almeida");
+        c.setEndereco("Rua da ALegria, 280");
+        c.setTelefone("9999-8888");
+        c.setAnimais(new ArrayList<>()); 
+        
+        jpa.persist(c);
         
         // Animal
         Animal animal = new Animal();
@@ -53,10 +60,29 @@ public class TestPersistenciaServicos {
         animal.setIdade(10);
         animal.setCliente(cliente);
         
-        // Adiciona o animal na coleção de animais do cliente
+        jpa.persist(animal);
+        
         cliente.getAnimais().add(animal);
         
-        jpa.persist(animal);
+        Animal animaal = new Animal();
+        animaal.setNome("Firefox");
+        animaal.setTipo("Cachorro");
+        animaal.setIdade(5);
+        animaal.setCliente(cliente);
+        
+        jpa.persist(animaal);
+        
+        cliente.getAnimais().add(animaal);
+        
+        Animal a = new Animal();
+        a.setNome("Garfield");
+        a.setTipo("Cachorro");
+        a.setIdade(3);
+        a.setCliente(c);
+        
+        jpa.persist(a);
+        
+        c.getAnimais().add(a);
         
         // Servico
         Servicos servico = new Servicos();
@@ -67,7 +93,21 @@ public class TestPersistenciaServicos {
         
         jpa.persist(servico);
         
+        Servicos servicoo = new Servicos();
+        servicoo.setDescricao("Consulta com veterinário");
+        servicoo.setValor(350.00);
+        servicoo.setData(Calendar.getInstance());
+        servicoo.setAnimal(animaal);
         
+        jpa.persist(servicoo);
+        
+        Servicos serv = new Servicos();
+        serv.setDescricao("Aplicação de Vacinas");
+        serv.setValor(80.00);
+        serv.setData(Calendar.getInstance());
+        serv.setAnimal(a);
+        
+        jpa.persist(serv);
         
     } 
 }
