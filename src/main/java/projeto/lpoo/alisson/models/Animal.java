@@ -19,18 +19,19 @@ import javax.persistence.Table;
  * @author aliss
  */
 @Entity
-@Table(name = "tb_Animal")
+@Table(name = "Animal")
 public class Animal implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "Nome")
     private String nome;
-    
+
     @Column(name = "Tipo")
     private String tipo;
-    
+
     @Column(name = "Idade")
     private int idade;
 
@@ -89,5 +90,8 @@ public class Animal implements Serializable {
         this.cliente = cliente;
     }
 
-    
+    @Override
+    public String toString() {
+        return nome; 
+    }
 }

@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "tb_Clientes")
+@Table(name = "Clientes")
 public class Clientes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -89,7 +89,11 @@ public class Clientes implements Serializable {
     public void setAnimais(Collection<Animal> animais) {
         this.animais = animais;
     }
-
+    
+    @Override
+    public String toString(){
+        return nome;
+    }
   
 }
 
