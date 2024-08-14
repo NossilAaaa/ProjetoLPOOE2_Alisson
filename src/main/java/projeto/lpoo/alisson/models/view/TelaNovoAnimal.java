@@ -8,7 +8,6 @@ import java.util.List;
 import projeto.lpoo.alisson.dao.PersistenciaJPA;
 import projeto.lpoo.alisson.models.Clientes;
 
-
 /**
  *
  * @author aliss
@@ -16,7 +15,7 @@ import projeto.lpoo.alisson.models.Clientes;
 public class TelaNovoAnimal extends javax.swing.JDialog {
 
     PersistenciaJPA persistencia = new PersistenciaJPA();
-    
+
     /**
      * Creates new form TelaNovoAnimal
      */
@@ -25,31 +24,30 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
         initComponents();
         CarregarClientes();
     }
-    
-    private void CarregarClientes(){
+
+    private void CarregarClientes() {
         persistencia = new PersistenciaJPA();
         List<Clientes> listClient = null;
-        
-        try{
+
+        try {
             persistencia.conexaoAberta();
-            
+
             listClient = persistencia.getClientes();
             if (listClient != null) {
-            System.out.println("Número de clientes encontrados: " + listClient.size());
-        } else {
-            System.out.println("A lista de clientes está nula.");
+                System.out.println("Número de clientes encontrados: " + listClient.size());
+            } else {
+                System.out.println("A lista de clientes está nula.");
+            }
+            for (Clientes c : listClient) {
+                boxCliente.addItem(c);
+            }
+            persistencia.fecharConexao();
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar clientes: " + e.getMessage());
+            e.printStackTrace();
         }
-        for (Clientes c : listClient) {
-            boxCliente.addItem(c);
-        }
-        persistencia.fecharConexao();
-    } catch (Exception e) {
-        System.out.println("Erro ao buscar clientes: " + e.getMessage());
-        e.printStackTrace();
     }
-        }
-    }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -191,12 +189,10 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
     }//GEN-LAST:event_boxClienteActionPerformed
 
     private void BttClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttClienteActionPerformed
-    TelaClientes tela = new TelaClientes(this, true);
-    tela.setVisible(true); 
-    
+        TelaClientes tela = new TelaClientes(this, true);
+        tela.setVisible(true);
 
-        
-        
+
     }//GEN-LAST:event_BttClienteActionPerformed
 
     /**
@@ -229,7 +225,7 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaNovoAnimal dialog = new TelaNovoAnimal(new javax.swing.JDialog(), true);
+                TelaNovoAnimal dialog = new TelaNovoAnimal(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
