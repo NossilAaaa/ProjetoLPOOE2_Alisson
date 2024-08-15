@@ -6,6 +6,7 @@ package projeto.lpoo.alisson.models.view;
 
 import java.util.List;
 import projeto.lpoo.alisson.dao.PersistenciaJPA;
+import projeto.lpoo.alisson.models.Animal;
 import projeto.lpoo.alisson.models.Clientes;
 
 /**
@@ -67,6 +68,9 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         boxCliente = new javax.swing.JComboBox<>();
         BttCliente = new javax.swing.JButton();
+        bttSave = new javax.swing.JButton();
+        bttCancel = new javax.swing.JButton();
+        bttRemoverCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,6 +115,27 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
             }
         });
 
+        bttSave.setText("Save");
+        bttSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttSaveActionPerformed(evt);
+            }
+        });
+
+        bttCancel.setText("Cancel");
+        bttCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttCancelActionPerformed(evt);
+            }
+        });
+
+        bttRemoverCliente.setText("Remover Cliente");
+        bttRemoverCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttRemoverClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,29 +152,38 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(lblIdade))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(boxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                                .addComponent(BttCliente)))))
-                .addGap(23, 23, 23))
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(BttCliente))
+                    .addComponent(boxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(bttSave)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bttCancel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(9, 9, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bttRemoverCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BttCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bttRemoverCliente)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,9 +198,12 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(boxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BttCliente))
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addComponent(boxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bttSave)
+                    .addComponent(bttCancel))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -194,6 +231,57 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_BttClienteActionPerformed
+
+    private void bttSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttSaveActionPerformed
+        Animal anim = new Animal();
+        anim.setNome(txtNome.getText());
+        anim.setTipo(txtTipo.getText());
+        anim.setIdade(Integer.parseInt(txtIdade.getText()));
+       
+        try{
+            persistencia.conexaoAberta();
+            persistencia.persist(anim);
+            persistencia.fecharConexao();
+        }catch(Exception e){
+            System.out.println("Erro: "+e.getMessage());
+        }
+        
+    txtNome.setText("");
+    txtTipo.setText("");
+    txtIdade.setText("");
+    }//GEN-LAST:event_bttSaveActionPerformed
+
+    private void bttCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_bttCancelActionPerformed
+
+    private void bttRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttRemoverClienteActionPerformed
+        Clientes clienteSelecionado = (Clientes) boxCliente.getSelectedItem();
+    
+    if (clienteSelecionado != null) {
+        int confirmacao = javax.swing.JOptionPane.showConfirmDialog(this, 
+                "Tem certeza que deseja remover o cliente selecionado?", 
+                "Confirmação de Remoção", 
+                javax.swing.JOptionPane.YES_NO_OPTION);
+        
+        if (confirmacao == javax.swing.JOptionPane.YES_OPTION) {
+            try {
+                persistencia.conexaoAberta();
+                persistencia.remover(clienteSelecionado);  // Supondo que você tenha um método de remoção na persistência
+                persistencia.fecharConexao();
+                
+                // Remover o cliente da JComboBox
+                boxCliente.removeItem(clienteSelecionado);
+                javax.swing.JOptionPane.showMessageDialog(this, "Cliente removido com sucesso!");
+            } catch (Exception e) {
+                System.out.println("Erro ao remover cliente: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Nenhum cliente selecionado para remoção.");
+    }
+    }//GEN-LAST:event_bttRemoverClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,6 +328,9 @@ public class TelaNovoAnimal extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BttCliente;
     private javax.swing.JComboBox<Clientes> boxCliente;
+    private javax.swing.JButton bttCancel;
+    private javax.swing.JButton bttRemoverCliente;
+    private javax.swing.JButton bttSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblIdade;
     private javax.swing.JLabel lblNome;

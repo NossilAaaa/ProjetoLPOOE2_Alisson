@@ -6,6 +6,7 @@ package projeto.lpoo.alisson.models.view;
 
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import projeto.lpoo.alisson.dao.PersistenciaJPA;
 import projeto.lpoo.alisson.models.Animal;
 
@@ -54,6 +55,9 @@ public class TelaAnimais extends javax.swing.JFrame {
         lstAnim = new javax.swing.JList<>();
         LblTitle = new javax.swing.JLabel();
         BttNewAnim = new javax.swing.JButton();
+        bttRemover = new javax.swing.JButton();
+        bttExit = new javax.swing.JButton();
+        bttServicos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +71,27 @@ public class TelaAnimais extends javax.swing.JFrame {
         BttNewAnim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BttNewAnimActionPerformed(evt);
+            }
+        });
+
+        bttRemover.setText("Remover");
+        bttRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttRemoverActionPerformed(evt);
+            }
+        });
+
+        bttExit.setText("Sair");
+        bttExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttExitActionPerformed(evt);
+            }
+        });
+
+        bttServicos.setText("Adicionar Serviços");
+        bttServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttServicosActionPerformed(evt);
             }
         });
 
@@ -84,9 +109,19 @@ public class TelaAnimais extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addComponent(BttNewAnim)
-                        .addGap(25, 25, 25))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bttServicos)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BttNewAnim)
+                                    .addComponent(bttRemover))))
+                        .addGap(22, 22, 22))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(bttExit)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,8 +132,15 @@ public class TelaAnimais extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLbl)
-                    .addComponent(BttNewAnim))
-                .addContainerGap(88, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BttNewAnim)
+                        .addGap(18, 18, 18)
+                        .addComponent(bttRemover)
+                        .addGap(18, 18, 18)
+                        .addComponent(bttServicos)))
+                .addGap(47, 47, 47)
+                .addComponent(bttExit)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -111,6 +153,39 @@ public class TelaAnimais extends javax.swing.JFrame {
        
        carregarAnimais();
     }//GEN-LAST:event_BttNewAnimActionPerformed
+
+    private void bttRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttRemoverActionPerformed
+        Animal animalSelecionado = lstAnim.getSelectedValue();
+        if(animalSelecionado != null){
+            int confirmacaoDel = JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja remover "
+                    + animalSelecionado.getNome());
+            if (confirmacaoDel == JOptionPane.YES_OPTION){
+                try{
+                persistencia = new PersistenciaJPA();
+                persistencia.conexaoAberta();
+                persistencia.remover(animalSelecionado);
+                persistencia.fecharConexao();
+                carregarAnimais();
+                }catch(Exception e){
+                    System.out.println("Erro ao excluir modalidade: " + e.getMessage());
+                }finally{
+                    persistencia.fecharConexao();
+                }
+                
+            }else{
+                JOptionPane.showMessageDialog(rootPane,
+                    "Nenhuma modalidade selecionada");
+            }
+        }
+    }//GEN-LAST:event_bttRemoverActionPerformed
+
+    private void bttExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttExitActionPerformed
+        dispose();
+    }//GEN-LAST:event_bttExitActionPerformed
+
+    private void bttServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttServicosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bttServicosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,6 +225,9 @@ public class TelaAnimais extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BttNewAnim;
     private javax.swing.JLabel LblTitle;
+    private javax.swing.JButton bttExit;
+    private javax.swing.JButton bttRemover;
+    private javax.swing.JButton bttServicos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Animal> lstAnim;
     private javax.swing.JLabel txtLbl;

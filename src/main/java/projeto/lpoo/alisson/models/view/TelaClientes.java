@@ -127,11 +127,8 @@ public class TelaClientes extends javax.swing.JDialog {
 
     private void bttSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttSaveActionPerformed
         Clientes client = new Clientes();
-        txtNome.getText();
         client.setNome(txtNome.getText());
-        txtEndere.getText();
         client.setEndereco(txtEndere.getText());
-        txtTelefone.getText();
         client.setTelefone(txtTelefone.getText());
         
         try{
@@ -141,6 +138,10 @@ public class TelaClientes extends javax.swing.JDialog {
         }catch(Exception e){
             System.out.println("Erro: "+e.getMessage());
         }
+        
+    txtNome.setText("");
+    txtEndere.setText("");
+    txtTelefone.setText("");
     }//GEN-LAST:event_bttSaveActionPerformed
 
     private void bttCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttCancelActionPerformed
